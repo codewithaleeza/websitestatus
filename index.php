@@ -70,6 +70,13 @@
 if(isset($_GET['domain'])){
   $domain2=$_GET['domain'];
   $website = trim($_GET['domain']).$_GET['suffix'];
+  function is_valid_domain_name($domain2) {
+ 
+   // Thanks to http://stackoverflow.com/a/4694816
+   return (preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $domain2) //valid chars check
+     && preg_match("/^.{1,253}$/", $domain2) //overall length check
+     && preg_match("/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $domain2)   ); //length of each label
+ }
   if(empty($domain2)){
     echo "<p style='font-size:20px;text-align:center;color:white;'>Field Empty. Please enter domain name.</p>";
   }
@@ -82,13 +89,7 @@ if(isset($_GET['domain'])){
    }
    else { echo "<p style='font-size:20px;text-align:center;color:white;'>".$website ." functions correctly.</p>"; }
  }
- $domain2=$_GET['domain'];
- function is_valid_domain_name($domain2) {
-  // Thanks to http://stackoverflow.com/a/4694816
-  return (preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $domain2) //valid chars check
-    && preg_match("/^.{1,253}$/", $domain2) //overall length check
-    && preg_match("/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $domain2)   ); //length of each label
-}
+
 ?><hr>
 </div>
 </body>
